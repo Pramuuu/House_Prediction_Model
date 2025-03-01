@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #1e90ff;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #104e8b;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            animation: slideDown 1s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result p {
+            font-size: 2rem;
+            color: #1e90ff;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            label {
+                font-size: 1rem;
+            }
+
+            input[type="submit"] {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Your Dream House Price</h1>
+        <form action="{{ url_for('main') }}" method="POST">
+            <label for="aai">Average Area Income</label>
+            <input name="aai" type="number" placeholder="Enter average area income" required>
+
+            <label for="aah">Average Area House Age</label>
+            <input name="aah" type="number" placeholder="Enter average house age" required>
+
+            <label for="aan">Average Area Number of Rooms</label>
+            <input name="aan" type="number" placeholder="Enter number of rooms" required>
+
+            <label for="aanb">Average Area Number of Bedrooms</label>
+            <input name="aanb" type="number" placeholder="Enter number of bedrooms" required>
+
+            <label for="ap">Area Population</label>
+            <input name="ap" type="number" placeholder="Enter area population" required>
+
+            <input type="submit" value="Predict Now">
+        </form>
+        {% if result %}
+        <div class="result">
+            <p><b>Predicted Price:</b> ${{ result }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
